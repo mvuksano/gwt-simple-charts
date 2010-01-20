@@ -1,0 +1,37 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		@sprite .ajaxloader { 
+			gwt-image:'loading';
+			margin-left: 270px;
+			margin-top: 190px;
+		}
+		
+		.graphHolder {
+			border: 3px solid #EEE;
+			padding-right: 5px;
+			height: 540px;
+		}
+
+		.graph {
+			margin:5px 5px 5px 5px;
+		}
+
+		.slider {
+			margin-left: 10px;
+		}
+	</ui:style>
+	<ui:image field='loading' src='resources/ajax-loader.gif' />
+	<div>
+		<div ui:field="graphHolder" class="{style.graphHolder}" style="display: none;">
+			<canvas ui:field="graphCanvas" class='{style.graph}'>
+			</canvas>
+			<br />
+			<div ui:field='slider' class='{style.slider}'></div>
+		</div>
+		<div ui:field='loadingImageHolder' class="{style.graphHolder}">
+			<div class='{style.ajaxloader}' />
+		</div>
+	</div>
+</ui:UiBinder>

@@ -55,32 +55,32 @@ public class SimpleLineChart extends Widget implements RequiresResize {
 	private native void initializeCanvas(Element graphHolderElement, Element canvasElement, Element sliderElement, Element loadingImageHolderElement) /*-{
 		var zoom = new $wnd.Zoom();
 		
-		var ecgGraphElement = canvasElement;
-		var ecgGraphContext = ecgGraphElement.getContext("2d");
+		var graphElement = canvasElement;
+		var graphContext = graphElement.getContext("2d");
 		
-		$wnd.jQuery(ecgGraphElement).mousedown(function(e){
+		$wnd.jQuery(graphElement).mousedown(function(e){
 			zoom.start();
-			zoom.setTopXY(e.pageX - ecgGraphElement.getBoundingClientRect().left, e.pageY - ecgGraphElement.getBoundingClientRect().top);
+			zoom.setTopXY(e.pageX - graphElement.getBoundingClientRect().left, e.pageY - graphElement.getBoundingClientRect().top);
 		});
 		
-		$wnd.jQuery(ecgGraphElement).mousemove(function(e){
+		$wnd.jQuery(graphElement).mousemove(function(e){
 			if (zoom.isActive()==true) {
-				$wnd.clear(ecgGraphElement);
-				$wnd.drawGridAndCurve(ecgGraphElement, ecgGraphContext, null, 0);
-				zoom.setCurrentXY(e.pageX - ecgGraphElement.getBoundingClientRect().left, e.pageY - ecgGraphElement.getBoundingClientRect().top);
-				ecgGraphContext.strokeStyle = "rgba(0, 0, 0, 0)";
-				ecgGraphContext.strokeRect(zoom.getTopX(), zoom.getTopY(), zoom.getCurrentWidth(), zoom.getCurrentHeight());
-				ecgGraphContext.fillStyle = "rgba(0, 0, 200, 0.1)";
-				ecgGraphContext.fillRect(zoom.getTopX(), zoom.getTopY(), zoom.getCurrentWidth(), zoom.getCurrentHeight());
-				ecgGraphContext.stroke();
+				$wnd.clear(graphElement);
+				$wnd.drawGridAndCurve(graphElement, graphContext, null, 0);
+				zoom.setCurrentXY(e.pageX - graphElement.getBoundingClientRect().left, e.pageY - graphElement.getBoundingClientRect().top);
+				graphContext.strokeStyle = "rgba(0, 0, 0, 0)";
+				graphContext.strokeRect(zoom.getTopX(), zoom.getTopY(), zoom.getCurrentWidth(), zoom.getCurrentHeight());
+				graphContext.fillStyle = "rgba(0, 0, 200, 0.1)";
+				graphContext.fillRect(zoom.getTopX(), zoom.getTopY(), zoom.getCurrentWidth(), zoom.getCurrentHeight());
+				graphContext.stroke();
 			}
 		});
 		
-		$wnd.jQuery(ecgGraphElement).mouseup(function(e){
+		$wnd.jQuery(graphElement).mouseup(function(e){
 			if (zoom.isActive() == true) {
 				zoom.stop();
-				$wnd.clear(ecgGraphElement);
-				$wnd.drawGridAndCurve(ecgGraphElement, ecgGraphContext, null, 0);
+				$wnd.clear(graphElement);
+				$wnd.drawGridAndCurve(graphElement, graphContext, null, 0);
 			}
 		});
 		
@@ -91,11 +91,11 @@ public class SimpleLineChart extends Widget implements RequiresResize {
 				loadingImageHolderElement.style.display='none';
 				graphHolderElement.style.display='block';
 				canvasElement.width = graphHolderElement.clientWidth - 10;
-				$wnd.drawGridAndCurve(ecgGraphElement, ecgGraphContext, measurements, 0);
+				$wnd.drawGridAndCurve(graphElement, graphContext, measurements, 0);
 				$wnd.jQuery(sliderElement).slider({
 					slide: function(event, ui) {
-						$wnd.clear(ecgGraphElement);
-						$wnd.drawGridAndCurve(ecgGraphElement, ecgGraphContext, null, ui.value * ((measurements.length - ecgGraphElement.width)/100));
+						$wnd.clear(graphElement);
+						$wnd.drawGridAndCurve(graphElement, graphContext, null, ui.value * ((measurements.length - graphElement.width)/100));
 					}
 				});
 			}

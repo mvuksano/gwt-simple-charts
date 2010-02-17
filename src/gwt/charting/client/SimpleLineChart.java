@@ -1,9 +1,12 @@
 package gwt.charting.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.CanvasElement;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.gwt.html5.elements.CanvasElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.RequiresResize;
@@ -12,6 +15,9 @@ import com.google.gwt.user.client.ui.Widget;
 public class SimpleLineChart extends Widget implements RequiresResize {
 
 	private static SimpleLineChartUiBinder uiBinder = GWT.create(SimpleLineChartUiBinder.class);
+	
+	private String height;	// Simple line chart height in pixels.
+	private String width;	// Simple line chart width in pixels
 
 	interface SimpleLineChartUiBinder extends
 			UiBinder<Element, SimpleLineChart> {
@@ -35,8 +41,8 @@ public class SimpleLineChart extends Widget implements RequiresResize {
 
 	@Override
 	protected void onAttach() {
-		graphCanvas.setAttribute("width", "150");
-		graphCanvas.setAttribute("height", "150");
+		graphCanvas.setAttribute("width", width);
+		graphCanvas.setAttribute("height", height);
 		super.onAttach();
 	}
 
@@ -44,6 +50,10 @@ public class SimpleLineChart extends Widget implements RequiresResize {
 	protected void onLoad() {
 		initializeCanvas(graphHolder, graphCanvas, slider, loadingImageHolder);
 		super.onLoad();
+	}
+	
+	public <H extends EventHandler> void addEvent(final HandlerManager eventBus, Type<H> eventType, H eventHandler) {
+		eventBus.addHandler(eventType, eventHandler);
 	}
 
 	/**
@@ -110,6 +120,14 @@ public class SimpleLineChart extends Widget implements RequiresResize {
 	@Override
 	public void onResize() {
 		repaintCanvas(graphHolder, graphCanvas, slider, loadingImageHolder);
+	}
+	
+	public void setHeight(String height) {
+		this.height = height;
+	}
+	
+	public void setWidth(String width) {
+		this.width = width;
 	}
 
 }

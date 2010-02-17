@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="gwt-simple-charts" default="build" basedir=".">
 	<!-- Configure path to GWT SDK -->
-	<property name="gwt.sdk" location="c:/devel/gwt-0.0.0" />
+	<property name="gwt.sdk" location="C:/Devel/gwt/trunk/build/staging/gwt-0.0.0" />
 	<property name="module.name"  value="${ant.project.name}"/>
 	<property name="jarfile.name" value="${module.name}.jar"/>
   	<property name="src"          location="src"/>
@@ -14,6 +14,7 @@
 		<pathelement location="build" />
 		<pathelement location="${gwt.sdk}/gwt-user.jar" />
 		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
+		<fileset dir="${lib}" includes="*.jar" />
 	</path>
 	
 	<target name="clean" description="Cleans this project">

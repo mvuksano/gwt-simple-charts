@@ -18,22 +18,24 @@
 	</path>
 	
 	<target name="clean" description="Cleans this project">
+		<delete dir="${build}"/>
         <delete dir="${dist}"/>
 	</target>
 			
     <target name="init" depends="clean" description="Create folders">
+    	<mkdir dir="${build}"/>
         <mkdir dir="${dist}"/>
     </target>
 
 	<target name="javac" depends="init" description="Compile java source">
-		<javac srcdir="src" includes="**" encoding="utf-8" destdir="build" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
+		<javac srcdir="${src}" includes="**" encoding="utf-8" destdir="build" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
 			<classpath refid="project.class.path" />
 		</javac>
 	</target>
 	
 	<target name="copy.scr" depends="javac" description="Copy source to output folder">
-		<copy todir="build">
-			<fileset dir="src" />
+		<copy todir="${build}">
+			<fileset dir="${src}" />
 		</copy>
 	</target>
 	
@@ -96,7 +98,7 @@
 	<target name="build" depends="copy.scr" description="Build this project" />
 
 	<target name="jar" depends="build" description="Create a jar file">
-		<jar destfile="${dist}/gwt-simple-charts.jar" basedir="build" />
+		<jar destfile="${dist}/${module.name}.jar" basedir="build" />
 	</target>
 
 </project>
